@@ -58,7 +58,7 @@
 
         </div>
         <div class="card-footer text-center">
-          <a href="{{route('imprimir.orcamento', $orcamento->id)}}" target="_blank" class="btn btn-success btn-round w-100"><i class="fa fa-file-pdf"></i> Exportar PDF</a>
+          <a href="{{route('exportar.orcamento', $orcamento->id)}}" target="_blank" class="btn btn-success btn-round w-100"><i class="fa fa-file-pdf"></i> Exportar PDF</a>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Pedidos;
 
 Auth::routes();
 
@@ -18,7 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('orcamento', 'OrcamentoController');
 	Route::post('finalizar-orcamento', 'OrcamentoController@store')->name('store.orcamento');
 	Route::get('orcamento/detalhe/{id}', 'OrcamentoController@detalheOrcamento')->name('orcamento.detalhe');
-	Route::any('exportar/orcamento/{id?}', 'OrcamentoController@imprimirOrcamento')->name('imprimir.orcamento');
+	Route::any('exportar/orcamento/{id?}', 'OrcamentoController@imprimirOrcamento')->name('exportar.orcamento');
 
 	// material
 	Route::resource('material', 'MaterialController');
@@ -31,21 +30,3 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
-
-
-// Route::get('teste', function(){
-// 	$teste = Pedidos::find(5);
-// 	dd($teste->produtos[0]->pivot->qtde);
-// });
-
-// Route::get('teste2', function(){
-// 	$teste = Pedidos::find(5);
-// 	$teste->produtos()->detach([2]);
-// 	dd($teste->produtos[0]->pivot->qtde);
-// });
-
-// Route::get('teste3', function(){
-// 	$teste = Pedidos::find(5);
-// 	$teste->produtos()->sync([1 => ['qtde' => 6]]);
-// 	dd($teste->produtos[0]->pivot->qtde);
-// });

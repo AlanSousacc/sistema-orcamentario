@@ -7,7 +7,7 @@
 				</button>
 				<h4 class="modal-title text-center" style="color:#fff">Exportar Orçamento</h4>
 			</div>
-			<form action="{{route('imprimir.orcamento')}}" method="get">
+			<form action="{{route('exportar.orcamento')}}" method="get">
 				{{ csrf_field() }}
 				<div class="modal-body">
 					<p class="text-center">O orçamento foi gerado com sucesso, agora você pode Exporta-lo.</p>
@@ -16,7 +16,7 @@
 				</div>
 				<div class="modal-footer">
 					<center>
-						<a href="{{route('imprimir.orcamento', session()->get('orcamento') )}}" target="_blank"  class="btn btn-success imprimir" >Sim, Exportar</a>
+						<a href="{{route('exportar.orcamento', session()->get('orcamento') )}}" target="_blank"  class="btn btn-success imprimir" >Sim, Exportar</a>
 						<button type="button" class="btn btn-default" data-dismiss="modal">Não, Fechar!</button>
 					</center>
 				</div>
