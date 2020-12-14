@@ -15,7 +15,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h5 class="title">{{__("Detalhes do Orçamento")}}</h5>
+          <h5 class="title">Detalhes do Orçamento</h5>
           <span class="text-center text-info" style="font-size: 18px">Cliente: {{$orcamento->contato->nome}}</span>
         </div>
         <div class="card-body">
@@ -50,7 +50,10 @@
                         @endforeach
                       </tbody>
                     </table>
+                    <hr class="mt-4">
                   </div>
+                  <p style="margin-bottom: 0;" class="ml-2">Observação:</p>
+                  <h4 class="border rounded p-1" style="margin-top: 5px;">{{$orcamento->observacao}}</h4>
                 </div>
               </div>
             </div>
@@ -58,6 +61,7 @@
 
         </div>
         <div class="card-footer text-center">
+          <a href="{{route('orcamento.edit', $orcamento->id)}}" class="btn btn-warning mb-2 btn-round w-100"><i class="now-ui-icons education_paper"></i> Editar Materiais</a>
           <a href="{{route('exportar.orcamento', $orcamento->id)}}" target="_blank" class="btn btn-success btn-round w-100"><i class="fa fa-file-pdf"></i> Exportar PDF</a>
         </div>
       </div>

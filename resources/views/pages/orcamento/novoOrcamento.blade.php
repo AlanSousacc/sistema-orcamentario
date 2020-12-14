@@ -38,10 +38,10 @@
       </div>
     </div>
   </div>
-  {{-- modal Deletar--}}
-  @include('pages.orcamento.modalExcluirOrcamento')
 
-  @include('pages.orcamento.modalImprimirOrcamento')
+  @include('pages.orcamento.modalExportarOrcamento')
+  {{-- modal editar quantidade --}}
+  @include('pages.orcamento.modalAlterarQtde')
 </div>
 
 @push('scripts')
@@ -73,7 +73,7 @@
 
     }).done(function(resposta) {
       let dados = resposta.data;
-      console.log(resposta);
+
       var str = '<tr id="'+count+'">'
         str += '<input type="hidden" name="materiais_listagem_id[]" value="'+dados.id+'" />'
         str += '<input type="hidden" name="materiais_qtde[]" value="'+$('#qtde').val()+'" />'
@@ -85,13 +85,13 @@
           str += '<td class="text-left">'+ dados.descricao + '<br><small class="obs-item"> ' + $('#obsitem').val() + '</small>' + '</td>'
         }
         if(dados.unidade == 'Metro'){
-          str += '<td class="text-center">'+ $('#qtde').val() +' MT.</td>'
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> MT.</td>'
         } else if(dados.unidade == 'Centimetro'){
-          str += '<td class="text-center">'+ $('#qtde').val() +' CM.</td>'
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> CM.</td>'
         } else if(dados.unidade == 'Pacote'){
-          str += '<td class="text-center">'+ $('#qtde').val() +' PCT.</td>'
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> PCT.</td>'
         } else {
-          str += '<td class="text-center">'+ $('#qtde').val() +' UNID.</td>'
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> UNID.</td>'
         }
         str += '<td class="text-center"><button class="btn btn-outline btn-sm btn-fab btn-icon btn-round" type="button" onclick="removerItem('+count+')" style="background: #016164"><i class="now-ui-icons ui-1_simple-remove"></i></button></td>'
         str += '</tr>';

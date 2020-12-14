@@ -10,6 +10,16 @@
 
 <div class="panel-header panel-header-sm">
 </div>
+@push('scripts')
+{{-- verifica se o pedido foi concluído com sucesso e abre o modal --}}
+@if(session('orcamento'))
+<script>
+  $(function() {
+    $('#impressao').modal('show');
+  });
+</script>
+@endif
+@endpush
 <div class="content">
   <div class="row">
     <div class="col-md-12">
@@ -25,13 +35,16 @@
             @include('alerts.success')
             @include('pages.orcamento.formOrcamentos')
             <div class="card-footer text-right">
-              <button type="submit" class="btn btn-primary btn-round" id="finalizaralteracao" style="background: #016164">{{__('Salvar Alterações')}}</button>
+              <button type="submit" class="btn btn-primary btn-round w-100" id="finalizaralteracao" style="background: #016164"><i class="now-ui-icons ui-1_check"></i> Salvar Alterações</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+  @include('pages.orcamento.modalExportarOrcamento')
+  {{-- modal editar quantidade --}}
+  @include('pages.orcamento.modalAlterarQtde')
 </div>
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -62,8 +75,16 @@
         } else{
           str += '<td class="text-left">'+ dados.descricao + '<br><small class="obs-item"> ' + $('#obsitem').val() + '</small>' + '</td>'
         }
-
-        str += '<td class="text-center">'+ $('#qtde').val() +'</td>'
+        if(dados.unidade == 'Metro'){
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> MT.</td>'
+        } else if (dados.unidade == 'Centimetro'){
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> CM.</td>'
+        } else if (dados.unidade == 'Pacote'){
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> PCT.</td>'
+        } else {
+          str += '<td class="text-left "><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ $('#qtde').val() +'</a> UNID.</td>'
+        }
+        // str += '<td class="text-center">'+ $('#qtde').val() +'</td>'
         str += '<td class="text-center"><button class="btn btn-outline-primary btn-sm btn-fab btn-icon btn-round" type="button" onclick="removerItem('+count+')"><i class="now-ui-icons ui-1_simple-remove"></i></button></td>'
         str += '</tr>';
 
@@ -92,7 +113,6 @@
 
       }).done(function(resposta) {
         var dados = resposta.data.materiais;
-        console.log(dados);
         for(var i = 0; i < dados.length ; i++){
 
           var str = '<tr id="'+count+'">'
@@ -106,13 +126,13 @@
               str += '<td class="text-left">'+ dados[i].descricao + '<br><small class="obs-item"> ' + dados[i].pivot.obsitem + '</small>' + '</td>'
             }
             if(dados[i].unidade == 'Metro'){
-              str += '<td class="text-center">'+ dados[i].pivot.qtde +' MT.</td>'
+              str += '<td class="text-center"><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ dados[i].pivot.qtde +'</a> MT.</td>'
             } else if (dados[i].unidade == 'Centimetro') {
-              str += '<td class="text-center">'+ dados[i].pivot.qtde +' CM.</td>'
+              str += '<td class="text-center"><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ dados[i].pivot.qtde +'</a> CM.</td>'
             } else if(dados[i].unidade == 'Pacote'){
-              str += '<td class="text-center">'+ dados[i].pivot.qtde +' PCT.</td>'
+              str += '<td class="text-center"><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ dados[i].pivot.qtde +'</a> PCT.</td>'
             } else {
-              str += '<td class="text-center">'+ dados[i].pivot.qtde +' UNID.</td>'
+              str += '<td class="text-center"><a href="#" class="tdQtde" data-id="'+count+'" data-target="#altQtde" data-qtde_anterior="'+$('#qtde').val()+'" data-toggle="modal">'+ dados[i].pivot.qtde +'</a> UNID.</td>'
             }
             str += '<td class="text-center"><button class="btn btn-outline-primary btn-sm btn-fab btn-icon btn-round" type="button" onclick="removerItem('+count+')"><i class="now-ui-icons ui-1_simple-remove"></i></button></td>'
             str += '</tr>';
@@ -138,6 +158,12 @@
       function removerItem(id){
         $('#'+ id).remove()
       }
+    </script>
+    {{-- fecha modal de impressao --}}
+    <script>
+      $('.imprimir').click(function(){
+        $('#impressao').modal('hide');
+      })
     </script>
     @endpush
     @endsection

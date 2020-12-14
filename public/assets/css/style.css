@@ -43,9 +43,6 @@ hr.divider {
 span.input-group-text.sifrao {
   background: #e3e3e3;
 }
-.sifrao-troco {
-  background: #e3e3e3!important;
-}
 
 .details .form-control[disabled]{
   background-color: rgba(255, 255, 255, 0.8);
@@ -91,4 +88,22 @@ ul.pagination {
 }
 li.list-group-item span {
   float: right;
+}
+
+input#qtde_anterior {
+  font-size: 30px;
+  height: 40px;
+  border: 1px solid #dee2e6;
+  background: #eee;
+  font-weight: 100;
+  border-radius: 20px;
+}
+input#qtde_add {
+  font-size: 30px;
+  height: 40px;
+  border: 1px solid #dee2e6;
+  background: #eee;
+  font-weight: 400;
+  color: #28a745;
+  border-radius: 20px;
 }

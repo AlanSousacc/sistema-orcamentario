@@ -6,7 +6,7 @@
       {{-- <div class=""> --}}
         <select id="contatoid" name="contato_id" class="form-control js-example-basic-single" required>
           @foreach($contatos as $item)
-          <option value="{{$item->id}}" {{isset($pedido) && $item->id == $pedido->contato->id ? 'selected' : ''}}>{{$item->nome}}</option>
+          <option value="{{$item->id}}" {{isset($orcamento) && $item->id == $orcamento->contato->id ? 'selected' : ''}}>{{$item->nome}}</option>
           @endforeach
         </select>
         {{-- </div> --}}
@@ -59,7 +59,7 @@
             <thead class="">
               <th class="text-left">Material</th>
               <th class="text-left">Qtde</th>
-              <th class="text-center"><i class="now-ui-icons ion-trash-b"></i></th>
+              <th class="text-center">Opção</th>
             </thead>
             <tbody id="listaProd">
             </tbody>

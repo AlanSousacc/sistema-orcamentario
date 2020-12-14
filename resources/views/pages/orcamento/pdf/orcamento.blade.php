@@ -8,9 +8,9 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 
-<style>
+<style type="text/css">
   body{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
     font-size: 15px;
   }
   table{
@@ -28,7 +28,7 @@
     <h3 class="title text-center">Relação de Materiais</h3>
 
     <table class="table table-striped">
-      <thead class="">
+      <thead class="thead-light">
         <tr>
           <th scope="col">Material</th>
           <th scope="col">Obs.</th>
@@ -47,6 +47,9 @@
         @endforeach
       </tbody>
     </table>
+    <hr>
+    <p style="margin-bottom: 0;" class="ml-2">Observação:</p>
+    <h4 class="p-2 bg-secondary text-white" style="margin-top: 5px;">{{$orcamento->observacao}}</h4>
   </div>
   <script src="{{ asset('js/jquery.js')}}"></script>
 </body>

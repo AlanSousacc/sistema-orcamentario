@@ -12,7 +12,7 @@ use DB;
 
 class OrcamentoController extends Controller
 {
-  // carrega todos os dados para a página de listagem de pedidos
+  // carrega todos os dados para a página de listagem de orçamentos
   public function index()
   {
     $consulta   = Orcamento::paginate(10);
@@ -20,7 +20,7 @@ class OrcamentoController extends Controller
     return view('pages.orcamento.listagemOrcamentos', compact('consulta'));
   }
 
-  // detalha o pedido solicitado e leva para a tela de detalhes do pedido
+  // detalha o orçamento solicitado e leva para a tela de detalhes do orçamento
   public function detalheOrcamento($id)
   {
     $orcamento = Orcamento::find($id);
@@ -39,20 +39,15 @@ class OrcamentoController extends Controller
     ]);
 	}
 
-  // cria a tela de novo pedido com os dados do banco.
+  // cria a tela de novo orçamento com os dados do banco.
   public function create(){
     $consulta     = Orcamento::paginate(10);
-    $contatos     = Contato::all();
+    $contatos     = Contato::orderBy('nome', 'DESC')->get();
     $materiais    = Material::all();
 
     return view('pages.orcamento.novoOrcamento', compact('contatos', 'materiais', 'consulta'));
   }
 
-  /**
-  * Esta função foi projetada para salvar o pedido em questão e também associar os itens do pedido
-  * ao pedido atual. Criar uma movimentação para que haja necessidade futuramente de conferencia,
-  * como se fosse um caixa.
-  */
   public function store(Request $request)
   {
     $data = $request->except('_token');
@@ -61,7 +56,6 @@ class OrcamentoController extends Controller
       throw new Exception('Quantidade de itens diferente de quantidade de unidade!');
 
     try{
-      // dados do orcamento
       $orcamento = new Orcamento;
       $orcamento->observacao = $data['observacao'];
       $orcamento->contato_id = $data['contato_id'];
@@ -74,7 +68,7 @@ class OrcamentoController extends Controller
     try{
       DB::beginTransaction();
       $orcamentosaved = $orcamento->save();
-      // dados do pedidoproduto
+      // dados do orçamentoproduto
       foreach($data['materiais_listagem_id'] as $i => $material_id ){
         $qtde    = $data['materiais_qtde'][$i];
         $obsitem = $data['obsitem'][$i];
@@ -97,11 +91,11 @@ class OrcamentoController extends Controller
       }
     }
 
-    // tela de alteração do pedido
+    // tela de alteração do orçamento
     public function edit($id)
     {
       $orcamento = Orcamento::find($id);
-      $contatos  = Contato::all();
+      $contatos  = Contato::orderBy('nome', 'ASC')->get();
       $materiais = Material::all();
 
       return view('pages.orcamento.editar', compact('orcamento', 'contatos', 'materiais'));
@@ -111,6 +105,7 @@ class OrcamentoController extends Controller
     {
       $data = $request->except('_token');
 
+      // dd($data);
       if(count($data['materiais_listagem_id']) < count($data['materiais_qtde']))
       throw new Exception('Quantidade de itens diferente de quantidade de unidade!');
 
@@ -145,7 +140,7 @@ class OrcamentoController extends Controller
         throw new Exception('Falha ao alterar o orçamento!');
 
         DB::commit();
-        return redirect()->back()->with('success', 'Orçamento alterado com sucesso!');
+        return redirect()->back()->with('orcamento', $orcamento->id);
 
       } catch (Exception $e) {
 
@@ -175,11 +170,11 @@ class OrcamentoController extends Controller
         $saved = $orcamento->delete();
 
         if (!$saved){
-          throw new Exception('Falha ao remover este pedido!');
+          throw new Exception('Falha ao remover este orçamento!');
         }
         DB::commit();
         // se chegou aqui é pq deu tudo certo
-        return redirect()->back()->with('success', 'Pedido #' . $orcamento->id . ' removido com sucesso!');
+        return redirect()->back()->with('success', 'Orçamento #' . $orcamento->id . ' removido com sucesso!');
       } catch (Exception $e) {
         DB::rollBack();
 
@@ -187,7 +182,7 @@ class OrcamentoController extends Controller
       }
     }
 
-    // após finalizar pedido e clicar em expotar
+    // após finalizar orçamento e clicar em expotar
     public function imprimirOrcamento($id){
       $orcamento = Orcamento::find($id);
 
