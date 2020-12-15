@@ -15,9 +15,9 @@
                 Action
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ route('orcamento.detalhe', $item->id)}}"><i class="now-ui-icons files_paper"></i>Detalhar Orçamento</a>
-                <a class="dropdown-item" href="{{ route('orcamento.edit', $item->id) }}"><i class="now-ui-icons education_paper"></i>Alterar</a>
-                <a class="dropdown-item" href="{{$item->id}}" data-contid={{$item->id}} data-target="#delete" data-toggle="modal"><i class="now-ui-icons ui-1_simple-remove"></i>Remover</a>
+                <a class="dropdown-item" href="{{ route('orcamento.detalhe', $item->id)}}"><i class="fa fa-clipboard-list"></i> Detalhar Orçamento</a>
+                <a class="dropdown-item" href="{{ route('orcamento.edit', $item->id) }}"><i class="fa fa-edit"></i> Alterar</a>
+                <a class="dropdown-item" href="{{$item->id}}" data-contid={{$item->id}} data-target="#delete" data-toggle="modal"><i class="fa fa-times-circle"></i> Remover</a>
               </div>
             </div>
           </td>

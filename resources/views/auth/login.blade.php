@@ -6,25 +6,11 @@
 ])
 
 @section('content')
-<div class="content">
-  <div class="container">
-    <div class="col-md-12 ml-auto mr-auto">
-      <div class="header bg-gradient-primary py-10 py-lg-2 pt-lg-12">
-        <div class="container">
-          <div class="header-body text-center mb-7">
-            <div class="row justify-content-center">
-              <div class="col-lg-12 col-md-9">
-                <p class="text-lead text-light mt-3 mb-0">
-                  @include('alerts.migrations_check')
-                </p>
-              </div>
-              <div class="col-lg-5 col-md-6">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="col-md-3 offset-md-9 fixed-top mt-3" style="z-index: 9999;">
+  @include('layouts.messages.master-message')
+</div>
+<div class="content" style="padding-bottom: 0!important; padding-top: 0!important;">
+  {{-- <div class="container"> --}}
     <div class="col-md-4 ml-auto mr-auto">
       <form autocomplete="off" role="form" method="POST" action="{{ route('login') }}">
         @csrf
@@ -69,16 +55,22 @@
                 <a href="{{ route('register') }}" class="link footer-link">{{ __('Create Account') }}</a>
               </h6>
             </div> --}}
-            <div class="text-center">
-              {{-- <h6>
-                <a href="{{ route('password.request') }}" class="link footer-link">{{ __('Esqueceu a Senha?') }}</a>
-              </h6> --}}
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="form-check text-center">
+                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} style="opacity: 100; visibility: inherit">
+
+                  <label class="form-check-label" for="remember" style="padding-left: 5px">
+                    {{ __('Remember Me') }}
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </form>
     </div>
-  </div>
+  {{-- </div> --}}
 </div>
 @endsection
 

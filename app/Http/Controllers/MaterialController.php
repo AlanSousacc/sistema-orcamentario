@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Material;
 use App\Models\Orcamento;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class MaterialController extends Controller
 {
@@ -91,8 +92,15 @@ class MaterialController extends Controller
   public function destroy(Request $request){
     $material = $this->repository->find($request->material_id);
 
+    $orcmat = DB::table('orcamento_material')
+    ->where('orcamento_material.material_id', $request->material_id)
+    ->get();
+
+    if (count($orcmat) >= 1)
+      return redirect()->back()->with('error', 'Não é possivel remover este material, ele está associado a alguma listagem de material!');
+
     if (!$material)
-    throw new Exception("Nenhum material encontrado!");
+      throw new Exception("Nenhum material encontrado!");
 
     $saved = $material->delete();
 

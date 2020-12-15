@@ -23,22 +23,20 @@
             <table class="table">
               <thead class="">
                 <th class="text-left">Descrição</th>
-                {{-- <th class="text-left">Preço</th> --}}
                 <th class="text-left">Opções</th>
               </thead>
               <tbody>
                 @foreach ($consulta as $item)
                 <tr>
                   <td class="text-left">{{$item->descricao}}</td>
-                  {{-- <td class="text-left">R$ {{number_format($item->precocusto, 2, ',', '.')}}</td> --}}
                   <td class="text-left">
                     <div class="btn-group">
                       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: #016164">
                         Action
                       </button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('material.edit', $item->id) }}">Alterar</a>
-                        <a class="dropdown-item" href="{{$item->id}}" data-contid={{$item->id}} data-target="#delete" data-toggle="modal">Remover</a>
+                        <a class="dropdown-item" href="{{ route('material.edit', $item->id) }}"><i class="fa fa-edit"></i> Alterar</a>
+                        <a class="dropdown-item" href="{{$item->id}}" data-contid={{$item->id}} data-target="#delete" data-toggle="modal"><i class="fa fa-times-circle"></i> Remover</a>
                       </div>
                     </div>
                   </td>

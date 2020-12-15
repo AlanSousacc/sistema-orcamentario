@@ -5,7 +5,7 @@
 'activeNav' => '',
 ])
 @section('content')
-<div class="col-md-3 offset-md-9 fixed-top mt-3" style="z-index: 9999;">
+<div class="col-sm-12 fixed-bottom mt-3" style="z-index: 9999;">
   @include('alerts.success')
 </div>
 {{-- @section('content') --}}
@@ -37,9 +37,9 @@
           <div class="row">
             <div class="col-md-7 pr-1">
               <div class="form-group">
-                <label for="exampleInputEmail1">{{__(" Endereço de Email")}}</label>
-                <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email', auth()->user()->email) }}">
-                @include('alerts.feedback', ['field' => 'email'])
+                <label for="username">{{__(" Username")}}</label>
+                <input type="text" name="username" class="form-control" placeholder="Username" value="{{ old('username', auth()->user()->username) }}">
+                @include('alerts.feedback', ['field' => 'username'])
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@
             <h5 class="title">{{ auth()->user()->name }}</h5>
           </a>
           <p class="description">
-            {{ auth()->user()->email }}
+            {{ auth()->user()->username }}
           </p>
           <p class="description">
             Data Criação: {{ (auth()->user()->created_at)->format('d/m/Y H:i:s') }}

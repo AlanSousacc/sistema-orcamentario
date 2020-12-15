@@ -107,3 +107,9 @@ input#qtde_add {
   color: #28a745;
   border-radius: 20px;
 }
+@media all and (display-mode: fullscreen) {
+  body {
+    margin: 0;
+    border: 5px solid black;
+  }
+}

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ContatoRequest;
 
 use App\Models\Contato;
+use App\Models\Orcamento;
 use Exception;
 
 class ContatoController extends Controller
@@ -64,6 +65,11 @@ class ContatoController extends Controller
   public function destroy(Request $request)
   {
     $contato = $this->repository->find($request->contato_id);
+
+    $contorc = Orcamento::where('contato_id', $contato->id)->get();
+
+    if (count($contorc) >= 1)
+      return redirect()->back()->with('error', 'Não é possivel remover este contato, ele está associado a alguma listagem de material!');
 
     if (!$contato)
     throw new Exception("Nenhum contato encontrado!");

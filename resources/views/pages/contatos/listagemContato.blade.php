@@ -35,8 +35,8 @@
                         Action
                       </button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('contato.edit', $item->id) }}"><i class="ionicons ion-ios-paper-outline"></i> Alterar</a>
-                        <a class="dropdown-item" href="{{$item->id}}" data-contid={{$item->id}} data-target="#delete" data-toggle="modal"><i class="ionicons ion-ios-close-outline"></i> Remover</a>
+                        <a class="dropdown-item" href="{{ route('contato.edit', $item->id) }}"><i class="fa fa-edit"></i> Alterar</a>
+                        <a class="dropdown-item" href="{{$item->id}}" data-contid={{$item->id}} data-target="#delete" data-toggle="modal"><i class="fa fa-times-circle"></i> Remover</a>
                       </div>
                     </div>
                   </td>

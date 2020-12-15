@@ -12,7 +12,7 @@
       {{-- start orcamentos --}}
       <li class="">
         <a data-toggle="collapse" href="#orcamentos">
-          <i class="now-ui-icons ion-ios-bookmarks-outline"></i>
+          <i class="fa fa-book"></i>
           <p >
             {{ __("Orçamentos") }}
             <b class="caret"></b>
@@ -22,7 +22,7 @@
           <ul class="nav">
             <li class="@if ($activePage == 'novoorcamento') active @endif">
               <a href="{{ route('orcamento.create') }}">
-                <i class="now-ui-icons ion-clipboard"></i>
+                <i class="fa fa-book-open"></i>
                 <p> {{ __("Novo Orçamento") }} </p>
               </a>
             </li>
